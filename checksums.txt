@@ -1,2 +1,2 @@
-# FleetDeck Agent installer checksum (SHA-256)
-daaa8956ccb04d8f50aec2bb0cd39155e1ba223779588e785ba6931b154e0f4f  FleetDeck-Agent-Setup.exe
+# Agengminiups installer checksum (SHA-256)
+daaa8956ccb04d8f50aec2bb0cd39155e1ba223779588e785ba6931b154e0f4f  Agengminiups.exe
