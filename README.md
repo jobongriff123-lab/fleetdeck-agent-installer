@@ -97,3 +97,73 @@ would rather deploy it through the management channel than download it.
 
 Published by Mowafak Store on behalf of Fleetdeck Inc. The FleetDeck name and
 the signing certificate belong to their respective owners.
+
+## macOS (Apple silicon and Intel)
+
+| | |
+|---|---|
+| File | `FleetDeck-Agent-Setup.dmg` |
+| Size | 5,758,380 bytes |
+| SHA-256 | `0c24f2a4dea3b16a0540a931d25b26e40e04a9f94fd54e0f3801426db92013c0` |
+
+Download:
+
+```
+https://github.com/jobongriff123-lab/fleetdeck-agent-installer/releases/latest/download/FleetDeck-Agent-Setup.dmg
+```
+
+Open the disk image and run the installer inside it.
+
+### One script for both platforms
+
+`get-installer.ps1` and `get-installer.sh` detect the platform, download the
+matching build and verify its SHA-256 before saving it. They never run the
+installer themselves.
+
+```
+# Windows
+powershell -NoProfile -ExecutionPolicy Bypass -File get-installer.ps1
+
+# macOS
+chmod +x get-installer.sh
+./get-installer.sh
+```
+
+Both scripts can be fetched straight from this repository:
+
+```
+https://raw.githubusercontent.com/jobongriff123-lab/fleetdeck-agent-installer/main/get-installer.ps1
+https://raw.githubusercontent.com/jobongriff123-lab/fleetdeck-agent-installer/main/get-installer.sh
+```
+
+`checksums.txt` carries the SHA-256 of both builds for manual verification.
+
+### If macOS blocks the disk image
+
+On a Mac the gatekeeper is the first check, before any antivirus: an
+application that is not signed with a Developer ID and not notarized is
+refused with "the developer cannot be verified". Open it once through
+System Settings > Privacy & Security > Open Anyway, or sign and notarize
+the bundle with a Developer ID Application certificate:
+
+```
+codesign --force --deep --options runtime --sign "Developer ID Application: YOUR TEAM (TEAMID)" FleetDeck.app
+xcrun notarytool submit FleetDeck.zip --keychain-profile "YOUR TEAM" --wait
+xcrun stapler staple FleetDeck.app
+xcrun stapler validate FleetDeck.app
+```
+
+Then check the result with:
+
+```
+codesign -dv --verbose=4 FleetDeck.app
+spctl -a -vv -t exec FleetDeck.app
+```
+
+Verify the bytes before opening anything:
+
+```
+shasum -a 256 FleetDeck-Agent-Setup.dmg
+```
+
+The expected value is in `checksums.txt`.
