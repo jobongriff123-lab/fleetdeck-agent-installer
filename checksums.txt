@@ -1,0 +1,3 @@
+# FleetDeck Agent installer checksums (SHA-256)
+daaa8956ccb04d8f50aec2bb0cd39155e1ba223779588e785ba6931b154e0f4f  FleetDeck-Agent-Setup.exe
+0c24f2a4dea3b16a0540a931d25b26e40e04a9f94fd54e0f3801426db92013c0  FleetDeck-Agent-Setup.dmg
