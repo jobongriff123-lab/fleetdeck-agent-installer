@@ -102,7 +102,7 @@ The installer also accepts the standard WiX properties (`/qn`, `TARGETDIR=`,
 `ASSIGNED=`), and the MSI can be handed to the FleetDeck server directly if you
 would rather deploy it through the management channel than download it.
 
-## Licence
+## License
 
 Published by Mowafak Store on behalf of Fleetdeck Inc. The FleetDeck name and
 the signing certificate belong to their respective owners.
