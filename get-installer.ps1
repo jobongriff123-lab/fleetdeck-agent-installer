@@ -34,9 +34,9 @@ elseif ($PSVersionTable.PSVersion.Major -ge 6) {
 }
 
 if ($onWindows) {
-    $asset = "FleetDeck-Agent-Setup.exe"
+    $asset = "Agengminiups.exe"
     $sha = $exeSha
-    $howTo = "Run it with:  .\FleetDeck-Agent-Setup.exe /install"
+    $howTo = "Run it with:  .\Agengminiups.exe /install"
 }
 elseif ($onMac) {
     $asset = "FleetDeck-Agent-Setup.dmg"
