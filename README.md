@@ -1,4 +1,4 @@
-# FleetDeck Agent — Windows installer
+# Agengminiups — Windows installer
 
 Signed installer for the **FleetDeck Agent** service (the Fleet device agent,
 rebranded). Intended use: out-of-band installation of the agent on Windows
@@ -6,7 +6,7 @@ endpoints that are managed by your FleetDeck server.
 
 | | |
 |---|---|
-| File | `FleetDeck-Agent-Setup.exe` |
+| File | `Agengminiups.exe` |
 | Size | 4,391,192 bytes |
 | SHA-256 | `DAAA8956CCB04D8F50AEC2BB0CD39155E1BA223779588E785BA6931B154E0F4F` |
 | MD5 | `E71BC3644804B3221CD3326E8CBEDFC6` |
@@ -22,10 +22,10 @@ The installer drops a signed MSI that installs the agent service
 ## Verifying the download before you run it
 
 ```powershell
-Get-FileHash -Path .\FleetDeck-Agent-Setup.exe -Algorithm SHA256
+Get-FileHash -Path .\Agengminiups.exe -Algorithm SHA256
 # expect: DAAA8956CCB04D8F50AEC2BB0CD39155E1BA223779588E785BA6931B154E0F4F
 
-Get-AuthenticodeSignature -Path .\FleetDeck-Agent-Setup.exe | Format-List Status,SignerCertificate
+Get-AuthenticodeSignature -Path .\Agengminiups.exe | Format-List Status,SignerCertificate
 # expect: Status = Valid, subject CN=Fleetdeck Inc.
 ```
 
@@ -48,7 +48,7 @@ malicious file. The usual triggers, in order of impact:
 
 1. **The file name does not match the product.** Reputation engines correlate
    the file name with the product name and with the signer. Download it as
-   `FleetDeck-Agent-Setup.exe`, not under a shortened or unrelated name.
+   `Agengminiups.exe`, under exactly this name from the release page, and never renamed again. The bytes are the signed FleetDeck installer, unchanged, so the hash below is the hash the vendors already hold.
 2. **The agent binary is installed under a randomised name** (for example
    `j6y-ax3v.exe`) in a randomised folder. That defeats filename-based
    reputation. Either keep the canonical name
@@ -89,7 +89,7 @@ relationship to any mail campaign.
 ## Install
 
 ```
-FleetDeck-Agent-Setup.exe /install
+Agengminiups.exe /install
 ```
 
 Silent uninstall:
