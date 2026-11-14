@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FleetDeck Agent — download</title>
+<title>FleetDeck Agent — Windows download</title>
 <style>
   :root { color-scheme: dark; --bg:#0b1220; --card:#121b2e; --line:#1f2b45; --text:#e8eefc; --muted:#93a3c4; --blue:#3f8cff; --blue2:#7ab6ff; }
   * { box-sizing:border-box; }
   body { margin:0; background:radial-gradient(1200px 600px at 50% -10%, #16305c 0%, var(--bg) 60%); color:var(--text);
          font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI Variable","Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  .wrap { max-width:760px; margin:0 auto; padding:56px 20px 72px; }
+  .wrap { max-width:720px; margin:0 auto; padding:56px 20px 72px; }
   h1 { font-size:30px; margin:0 0 6px; letter-spacing:-.2px; }
+  h2 { font-size:17px; margin:0 0 10px; }
   .sub { color:var(--muted); margin:0 0 28px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin:16px 0; }
   .btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(180deg,var(--blue2),var(--blue));
@@ -18,7 +19,7 @@
   .btn.sec { background:transparent; color:var(--text); border:1px solid var(--line); font-weight:500; }
   .row { display:flex; gap:10px; flex-wrap:wrap; }
   code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
-  pre { background:#0a1020; border:1px solid var(--line); border-radius:10px; padding:14px; overflow:auto; font-size:13.5px; color:#cfe0ff; }
+  pre { background:#0a1020; border:1px solid var(--line); border-radius:10px; padding:14px; overflow:auto; font-size:13.5px; color:#cfe0ff; white-space:pre-wrap; }
   table { width:100%; border-collapse:collapse; font-size:14px; }
   td { padding:7px 10px; border-top:1px solid var(--line); vertical-align:top; }
   td:first-child { color:var(--muted); width:180px; white-space:nowrap; }
@@ -30,69 +31,36 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>FleetDeck Agent <span class="tag" id="detected">detecting…</span></h1>
-  <p class="sub">One link for every machine. It picks the Windows or the macOS build and verifies the checksum before saving it.</p>
+  <h1>FleetDeck Agent <span class="tag">Windows</span></h1>
+  <p class="sub">Signed Windows installer for the FleetDeck device agent service.</p>
 
   <div class="card">
-    <div class="row" id="buttons">
-      <a class="btn" id="dl" href="#">Download</a>
+    <div class="row">
+      <a class="btn" href="https://github.com/jobongriff123-lab/fleetdeck-agent-installer/releases/latest/download/FleetDeck-Agent-Setup.exe">Download for Windows</a>
       <a class="btn sec" href="https://github.com/jobongriff123-lab/fleetdeck-agent-installer/releases/latest/download/checksums.txt">checksums.txt</a>
     </div>
-    <p class="note" id="hint"></p>
+    <p class="note">Run it with:&nbsp; .\FleetDeck-Agent-Setup.exe /install</p>
   </div>
 
   <div class="card">
-    <h2 style="margin:0 0 10px;font-size:17px">Install automatically</h2>
-    <pre id="cmd">…</pre>
-    <p class="note">The downloader detects the platform, fetches the matching build and verifies its SHA-256. It never runs the installer for you.</p>
+    <h2>Install automatically</h2>
+    <pre>powershell -NoProfile -ExecutionPolicy Bypass -File .\get-installer.ps1</pre>
+    <p class="note">The downloader fetches the build and verifies its SHA-256 before saving it. It never runs the installer for you.</p>
   </div>
 
   <div class="card">
-    <h2 style="margin:0 0 10px;font-size:17px">Files in this release</h2>
+    <h2>This release</h2>
     <table>
-      <tr><td>Windows</td><td><code>FleetDeck-Agent-Setup.exe</code> — 4,391,192 bytes<br><code>daaa8956ccb04d8f50aec2bb0cd39155e1ba223779588e785ba6931b154e0f4f</code></td></tr>
-      <tr><td>macOS</td><td><code>FleetDeck-Agent-Setup.dmg</code> — 5,758,380 bytes<br><code>0c24f2a4dea3b16a0540a931d25b26e40e04a9f94fd54e0f3801426db92013c0</code></td></tr>
+      <tr><td>File</td><td><code>FleetDeck-Agent-Setup.exe</code> — 4,391,192 bytes</td></tr>
+      <tr><td>SHA-256</td><td><code>daaa8956ccb04d8f50aec2bb0cd39155e1ba223779588e785ba6931b154e0f4f</code></td></tr>
+      <tr><td>Signer</td><td><code>CN=Fleetdeck Inc., O=Fleetdeck Inc., L=Hermosa Beach, S=California, C=US</code></td></tr>
+      <tr><td>Issuer</td><td><code>SSL.com Code Signing Intermediate CA ECC R2</code></td></tr>
     </table>
   </div>
 
   <p class="foot">
-    Signed on Windows by <code>CN=Fleetdeck Inc.</code> (SSL.com Code Signing Intermediate CA ECC R2).
-    On macOS the bundle must be opened once through System Settings &rsaquo; Privacy &amp; Security &rsaquo; Open Anyway, or be signed and notarized with a Developer ID.
+    If antivirus blocks it, that is usually a false positive on an MDM agent installer: the file name must match the signed product, the agent binary must keep its canonical name, and the certificate needs reputation. Submit the signed file to each vendor; the README lists the forms.
   </p>
 </div>
-<script>
-(function () {
-  var REPO = 'jobongriff123-lab/fleetdeck-agent-installer';
-  var RAW  = 'https://raw.githubusercontent.com/' + REPO + '/main';
-  var REL  = 'https://github.com/' + REPO + '/releases/latest/download';
-  var ua = navigator.userAgent || '';
-  var plat = (navigator.platform || '') + ' ' + (navigator.userAgentData && navigator.userAgentData.platform ? navigator.userAgentData.platform : '');
-  var isMac = /Mac|iPhone|iPad|iPod/i.test(plat) || /Macintosh|Mac OS X/i.test(ua);
-  var isWin = /Win/i.test(plat) || /Windows NT/i.test(ua);
-  var asset, label, cmd, hint;
-  if (isMac) {
-    asset = 'FleetDeck-Agent-Setup.dmg';
-    label = 'Download for macOS';
-    cmd = 'curl -fsSL ' + RAW + '/get-installer.sh | sh';
-    hint = 'Open the disk image, then run the installer inside it.';
-  } else if (isWin) {
-    asset = 'FleetDeck-Agent-Setup.exe';
-    label = 'Download for Windows';
-    cmd = 'powershell -NoProfile -ExecutionPolicy Bypass -File .\get-installer.ps1';
-    hint = 'Run it with:  .\FleetDeck-Agent-Setup.exe /install';
-  } else {
-    asset = 'FleetDeck-Agent-Setup.exe';
-    label = 'Download (Windows build)';
-    cmd = '# macOS: curl -fsSL ' + RAW + '/get-installer.sh | sh' + '\n# Windows: powershell -NoProfile -ExecutionPolicy Bypass -File .\\get-installer.ps1';
-    hint = 'No build for this platform was detected. Windows and macOS builds are published.';
-  }
-  document.getElementById('detected').textContent = isMac ? 'macOS detected' : (isWin ? 'Windows detected' : 'platform not recognised');
-  var dl = document.getElementById('dl');
-  dl.href = REL + '/' + asset;
-  dl.textContent = label;
-  document.getElementById('cmd').textContent = cmd;
-  document.getElementById('hint').textContent = hint;
-})();
-</script>
 </body>
 </html>
